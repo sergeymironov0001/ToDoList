@@ -50,32 +50,58 @@ angular.module('ToDoList.common', [
         };
     })
     .service('tasksStorage', function ($localStorage, tasksValidator, $log) {
-        function initStorage(storage) {
-            storage.tasks = [];
+        //$localStorage.$reset();
+
+        function initStorage() {
+            $localStorage.tasks = [];
+            $localStorage.$apply();
+        }
+
+        function isStorageInitialized() {
+            return $localStorage.tasks;
         }
 
         function getTasks() {
-            if (!$localStorage.tasks) {
-                initStorage($localStorage);
+            if (!isStorageInitialized()) {
+                initStorage();
             }
             return $localStorage.tasks;
         }
 
+        function saveTasks(tasks) {
+            $localStorage.tasks = tasks;
+            $localStorage.$apply();
+        }
+
         function addTask(task) {
-            if (!$localStorage.tasks) {
+            if (!isStorageInitialized($localStorage)) {
                 initStorage($localStorage);
             }
-
             if (tasksValidator.isTaskValid(task)) {
-                $localStorage.tasks.push(task);
+                var tasks = getTasks();
+                tasks.push(task);
+                saveTasks(tasks);
             } else {
                 $log.error("Try to save invalid task!");
             }
         }
 
         function updateTask(originalTask, updatedTask) {
-            var index = getTasks().indexOf(originalTask);
-            getTasks()[index] = updatedTask;
+            if (!isStorageInitialized($localStorage)) {
+                initStorage($localStorage);
+            }
+            var tasks = getTasks();
+            var index = tasks.indexOf(originalTask);
+            if (index >= 0) {
+                // Because ngStore has a bug when after refresh page it's break data
+                var task = tasks[index];
+                task.name = updatedTask.name;
+                task.priority = updatedTask.priority;
+                task.endDate = updatedTask.endDate;
+                task.isCompleted = updatedTask.isCompleted;
+                task.description = updatedTask.description;
+                saveTasks(tasks);
+            }
         }
 
         return {

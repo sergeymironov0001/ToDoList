@@ -1,34 +1,4 @@
-<div id="add-task" ng-controller="addTaskController" class="border">
-    <form ng-submit="addTask()">
-        <div class="form-group col-sm-7">
-            <label class="h4" for="name">Task:</label>
-            <input id="name" type="text" class="form-control" ng-model="newTask.name"/>
-        </div>
-        <div class="form-group col-sm-1" style="min-width: 90px;">
-            <label class="h4" for="priority">Priority:</label>
-            <select id="priority" class="form-control" ng-model="newTask.priority"
-                    ng-options="priority as priority for priority in priorities()"
-                    ng-init="selected=defaultPriority()"></select>
-        </div>
-        <div class="form-group col-sm-3">
-            <label class="h4" for="endDate">End Date:</label>
-
-            <div style="width: 270px;">
-                <datepicker id="endDate"
-                            ng-model="newTask.endDate" class="well well-sm"
-                            show-weeks="false"
-                            custom-class="getDayClass(date, mode)"
-                            style="margin-bottom: 0; width: 270px;"></datepicker>
-            </div>
-        </div>
-        <div class="form-group col-sm-1" style="min-width: 95px;">
-            <div class="empty-row"/>
-            <button class="btn bg-primary col-sm-12" ng-disabled="!isNewTaskCorrect()" type="submit">+</button>
-        </div>
-    </form>
-</div>
-
-<div ng-controller="outputTasksController" class="border" style="clear:both;">
+<div id="output-tasks" style="clear:both;" ng-app="ToDoList.outputTasks" ng-controller="OutputTasksController">
     <div class="btn-group col-sm-3" style="min-width: 290px;">
         <label class="btn btn-primary col-sm-6" ng-model="activeTaskFilter" ng-model-options="{ getterSetter: true }"
                btn-checkbox>Active</label>

@@ -6,7 +6,7 @@
 <!--[if IE 8]>
 <html lang="en" ng-app="todoList" class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
-<html lang="en" ng-app="todoList" class="no-js"> <!--<![endif]-->
+<html lang="en" ng-app="ToDoList" class="no-js"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -33,20 +33,19 @@
     </div>
 </div>
 <div class="container">
-    <div ng-view>
-    </div>
+    <div ui-view="addTaskView"></div>
+    <div ui-view="outputTasksView"></div>
 </div>
 
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/angular-route/angular-route.js"></script>
-<script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
-<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-<script src="bower_components/ngstorage/ngStorage.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="bower_components/ngstorage/ngStorage.min.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 <script src="app.js"></script>
-<script src="view1/view1.js"></script>
-<script src="view2/view2.js"></script>
-<script src="components/version/version.js"></script>
-<script src="components/version/version-directive.js"></script>
-<script src="components/version/interpolate-filter.js"></script>
+<script src="components/common/common.js"></script>
+<script src="views/addTask/addTask.js"></script>
+<script src="views/outputTasks/outputTasks.js"></script>
 </body>
 </html>

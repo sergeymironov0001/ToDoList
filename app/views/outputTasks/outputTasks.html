@@ -10,36 +10,39 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th>
+                <th class="col-sm-8">
                     <a href="" ng-click="order('name')">Task</a>
                     <span class="glyphicon sort-icon" ng-show="isOrderBy('name')"
                           ng-class="{'glyphicon-chevron-up':isReverseSorting(),'glyphicon-chevron-down':!isReverseSorting()}"></span>
                 </th>
 
-                <th>
+                <th class="col-sm-1">
                     <a href="" ng-click="order('priority')">Priority</a>
                     <span class="glyphicon sort-icon" ng-show="isOrderBy('priority')"
                           ng-class="{'glyphicon-chevron-up':isReverseSorting(),'glyphicon-chevron-down':!isReverseSorting()}"></span>
                 </th>
-                <th>
+                <th class="col-sm-1">
                     <a href="" ng-click="order('endDate')">End Date</a>
                     <span class="glyphicon sort-icon" ng-show="isOrderBy('endDate')"
                           ng-class="{'glyphicon-chevron-up':isReverseSorting(),'glyphicon-chevron-down':!isReverseSorting()}"></span>
                 </th>
-                <th></th>
+                <th class="col-sm-1"></th>
             </tr>
             </thead>
-            <tr ng-hide="getTasks().length">
+            <tr ng-show="!getTasks().length">
                 <td class="text-center" colspan="4">Have no tasks yet...</td>
+            </tr>
+            <tr ng-show="(getTasks().length) && !(getTasks() | filter:getTasksFilterArguments()).length">
+                <td class="text-center" colspan="4">Have no tasks for selected criteria...</td>
             </tr>
             <tr ng-repeat="task in getTasks() | filter:getTasksFilterArguments() | orderBy:getSortingFiled():isReverseSorting()"
                 ng-dblclick="openTaskDetailsModalDialog()"
                 ng-click="selectTask(task)"
                 ng-class="{'selected':isTaskSelected(task)}">
                 <td>{{task.name}}</td>
-                <td class="span"> {{task.priority}}</td>
-                <td class="span2"> {{task.endDate | date: 'dd/MM/yyyy'}}</td>
-                <td class="span1"><input class="checkbox" type="checkbox" ng-model="task.isCompleted"/></td>
+                <td>{{task.priority}}</td>
+                <td>{{task.endDate | date: 'dd/MM/yyyy'}}</td>
+                <td><input class="checkbox" type="checkbox" ng-model="task.isCompleted"/></td>
             </tr>
         </table>
     </div>

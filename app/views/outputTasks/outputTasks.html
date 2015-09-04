@@ -32,8 +32,8 @@
             <tr ng-show="!getTasks().length">
                 <td class="text-center" colspan="4">Have no tasks yet...</td>
             </tr>
-            <tr ng-show="(getTasks().length) && !(getTasks() | filter:getTasksFilterArguments()).length">
-                <td class="text-center" colspan="4">Have no tasks for selected criteria...</td>
+            <tr ng-show="getTasks().length && !(getTasks() | filter:getTasksFilterArguments()).length">
+                <td class="text-center" colspan="4">Have no tasks for selected criteria... </td>
             </tr>
             <tr ng-repeat="task in getTasks() | filter:getTasksFilterArguments() | orderBy:getSortingFiled():isReverseSorting()"
                 ng-dblclick="openTaskDetailsModalDialog()"
